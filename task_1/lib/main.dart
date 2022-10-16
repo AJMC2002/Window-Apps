@@ -16,11 +16,6 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.purple[100],
         listTileTheme: ListTileThemeData(
           tileColor: Colors.grey[50],
-          contentPadding: const EdgeInsets.all(10),
-          shape: RoundedRectangleBorder(
-            side: const BorderSide(color: Colors.black, width: 1),
-            borderRadius: BorderRadius.circular(10),
-          ),
         ),
         checkboxTheme: const CheckboxThemeData(
           shape: CircleBorder(),
@@ -42,9 +37,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<String> _taskTitles = ['Task 1', 'Task 2', 'Task 3'];
-  final List<bool?> _taskIsSelected = [false, true, false];
-  final List<bool> _taskIsFav = [false, true, true];
+  final List<String> _taskTitles =[];
+  final List<bool?> _taskIsSelected=[];
+  final List<bool> _taskIsFav=[];
 
   final _favIcon = const Icon(Icons.star_border_purple500_outlined,
       color: Colors.deepPurple);
@@ -53,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _addTask() {
     setState(() {
-      _taskTitles.add(_taskTitles[_taskTitles.length - 1] + '1');
+      _taskTitles.add('Test task #N');
       _taskIsSelected.add(false);
       _taskIsFav.add(false);
     });
@@ -61,11 +56,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _popUpMenuOnClick(String value) {
     switch (value) {
-      case 'Скрыть выполнение':
+      case 'Скрыть выполненные':
         break;
       case 'Только избранные':
         break;
-      case 'Удалить выполнение':
+      case 'Удалить выполненные':
         break;
       case 'Редактировать тему':
         break;
@@ -74,27 +69,38 @@ class _MyHomePageState extends State<MyHomePage> {
 
   ListTile _newTask(int index) {
     return ListTile(
-      leading: Checkbox(
-        value: _taskIsSelected[index],
-        onChanged: (bool? newValue) {
-          setState(
-            () {
-              _taskIsSelected[index] = newValue;
-            },
-          );
-        },
+      leading: Transform.scale(
+        scale: 1.2,
+        child: Checkbox(
+          value: _taskIsSelected[index],
+          onChanged: (bool? newValue) {
+            setState(
+              () {
+                _taskIsSelected[index] = newValue;
+              },
+            );
+          },
+        ),
       ),
       title: Text(
         _taskTitles[index],
         style: const TextStyle(fontSize: 20),
       ),
-      trailing: IconButton(
-        icon: _taskIsFav[index] ? _favIconSelected : _favIcon,
-        onPressed: () {
-          setState(() {
-            _taskIsFav[index] = !_taskIsFav[index];
-          });
-        },
+      trailing: Transform.scale(
+        scale: 1.2,
+        child: IconButton(
+          icon: _taskIsFav[index] ? _favIconSelected : _favIcon,
+          onPressed: () {
+            setState(() {
+              _taskIsFav[index] = !_taskIsFav[index];
+            });
+          },
+        ),
+      ),
+      contentPadding: const EdgeInsets.all(10),
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(color: Colors.black, width: 1),
+        borderRadius: BorderRadius.circular(10),
       ),
     );
   }
@@ -104,23 +110,46 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: const TextStyle(fontSize: 30),
+        ),
         actions: <Widget>[
           PopupMenuButton<String>(
+              color: Colors.grey[50],
               onSelected: _popUpMenuOnClick,
-              itemBuilder: (BuildContext context) {
-                return {
-                  'Скрыть выполнение',
-                  'Только избранные',
-                  'Удалить выполнение',
-                  'Редактировать тему',
-                }.map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
-              })
+              itemBuilder: (context) => {
+                    {
+                      'value': 'Hide completed',
+                      'title': 'Скрыть выполненные',
+                      'icon': const Icon(Icons.check_circle)
+                    },
+                    {
+                      'value': 'Only selected',
+                      'title': 'Только избранные',
+                      'icon': const Icon(Icons.star)
+                    },
+                    {
+                      'value': 'Delete completed',
+                      'title': 'Удалить выполненные',
+                      'icon': const Icon(Icons.delete)
+                    },
+                    {
+                      'value': 'Edit topic',
+                      'title': 'Редактировать тему',
+                      'icon': const Icon(Icons.edit)
+                    },
+                  }
+                      .map(
+                        (Map<String, dynamic> item) => PopupMenuItem<String>(
+                          value: item['value'],
+                          child: ListTile(
+                            leading: item['icon'],
+                            title: Text(item['title']),
+                          ),
+                        ),
+                      )
+                      .toList())
         ],
       ),
       body: Center(
@@ -129,9 +158,10 @@ class _MyHomePageState extends State<MyHomePage> {
           itemCount: _taskTitles.length,
           itemBuilder: (context, index) => _newTask(index),
           separatorBuilder: (context, index) => const Divider(
-            color: Colors.purpleAccent,
-            indent: 50,
-            endIndent: 50,
+            color: Colors.deepPurpleAccent,
+            indent: 25,
+            endIndent: 25,
+            thickness: 2,
           ),
         ),
       ),
