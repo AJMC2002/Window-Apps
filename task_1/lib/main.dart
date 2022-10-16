@@ -86,9 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       title: Text(
         _taskTitles[index],
-        style: const TextStyle(
-          fontSize: 20,
-        ),
+        style: const TextStyle(fontSize: 20),
       ),
       trailing: IconButton(
         icon: _taskIsFav[index] ? _favIconSelected : _favIcon,
