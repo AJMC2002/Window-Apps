@@ -1,6 +1,6 @@
 # Window Apps Task 💻
 
-A new Flutter project.
+Formater line length: 80
 
 ## Progress 🀄
 
