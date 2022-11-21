@@ -1,6 +1,10 @@
 # Window Apps Task 💻
 
-Formater line length: 80
+Text editor formatter line length: 80
+
+Topic max length: 40
+
+Task title max length: 40
 
 ## Progress 🀄
 
