@@ -46,40 +46,45 @@ class TaskTileState extends State<TaskTile> {
         padding: const EdgeInsets.all(15),
         child: const Icon(Icons.delete, size: 30),
       ),
-      child: Material(
-        borderRadius: BorderRadius.circular(5),
-        child: ListTile(
-          tileColor: Colors.grey[100],
-          shape: RoundedRectangleBorder(
-            side: const BorderSide(color: Colors.black),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          contentPadding: const EdgeInsets.all(13),
-          title: Text(
-            widget.task.title,
-            style: const TextStyle(fontSize: 20),
-          ),
-          minLeadingWidth: 0,
-          leading: SizedBox(
-            height: double.infinity,
-            child: Transform.scale(
-              scale: 1.25,
-              child: Checkbox(
-                shape: const CircleBorder(),
-                value: widget.task.isDone,
-                onChanged: (_) => widget.switchDone(widget.task.id),
+      child: Card(
+        margin: EdgeInsets.zero,
+        color: Colors.grey[100],
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(color: Colors.black),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Transform.scale(
+                  scale: 1.25,
+                  child: Checkbox(
+                    shape: const CircleBorder(),
+                    value: widget.task.isDone,
+                    onChanged: (_) => widget.switchDone(widget.task.id),
+                  ),
+                ),
               ),
-            ),
-          ),
-          trailing: SizedBox(
-            height: double.infinity,
-            child: IconButton(
-              icon: widget.task.isFavorite
-                  ? _favoriteIconSelected
-                  : _favoriteIcon,
-              iconSize: 30,
-              onPressed: () => widget.switchFavorite(widget.task.id),
-            ),
+              Expanded(
+                child: Text(
+                  widget.task.title,
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: IconButton(
+                  icon: widget.task.isFavorite
+                      ? _favoriteIconSelected
+                      : _favoriteIcon,
+                  iconSize: 30,
+                  onPressed: () => widget.switchFavorite(widget.task.id),
+                ),
+              ),
+            ],
           ),
         ),
       ),
