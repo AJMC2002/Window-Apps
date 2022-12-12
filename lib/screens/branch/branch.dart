@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../models/task.dart';
-import 'widgets/bg.dart';
-import 'widgets/appbar.dart';
-import 'widgets/add_task_dialog.dart';
-import 'widgets/task_list.dart';
+import 'widgets/tasklist/empty_tasklist.dart';
+import 'widgets/appbar/appbar.dart';
+import 'widgets/fab/add_task_dialog.dart';
+import 'widgets/tasklist/tasklist.dart';
 
 class BranchPage extends StatefulWidget {
   BranchPage({super.key, required this.topic});
