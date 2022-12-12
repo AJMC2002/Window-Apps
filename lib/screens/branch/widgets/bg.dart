@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class HomeBackground extends StatelessWidget {
-  const HomeBackground({super.key});
+class EmptyTaskList extends StatelessWidget {
+  const EmptyTaskList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +13,13 @@ class HomeBackground extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: const [
-          _TaskListImg(),
-          Flexible(
+          _EmptyTaskListImg(),
+          Padding(
+            padding: EdgeInsets.all(22),
             child: Text(
-              'На данный момент задачи отсутствуют',
+              'На данный момент\nзадачи отсутствуют',
               style: TextStyle(fontSize: 30),
+              textAlign: TextAlign.center,
             ),
           ),
         ],
@@ -26,14 +28,19 @@ class HomeBackground extends StatelessWidget {
   }
 }
 
-class _TaskListImg extends StatefulWidget {
-  const _TaskListImg({super.key});
-
-  @override
-  State<_TaskListImg> createState() => _TaskListImgState();
+abstract class _EmptyTaskListAssets {
+  static const String todolist_background = 'assets/todolist_background.svg';
+  static const String todolist = 'assets/todolist.svg';
 }
 
-class _TaskListImgState extends State<_TaskListImg>
+class _EmptyTaskListImg extends StatefulWidget {
+  const _EmptyTaskListImg();
+
+  @override
+  State<_EmptyTaskListImg> createState() => _EmptyTaskListImgState();
+}
+
+class _EmptyTaskListImgState extends State<_EmptyTaskListImg>
     with TickerProviderStateMixin {
   final double _size = 181;
   late final AnimationController _controller;
@@ -44,7 +51,7 @@ class _TaskListImgState extends State<_TaskListImg>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 1300),
     )
       ..addListener(() {})
       ..forward();
@@ -71,12 +78,12 @@ class _TaskListImgState extends State<_TaskListImg>
             clipper: _BackgroundClipper(),
             child: Stack(
               children: [
-                SvgPicture.asset('assets/todolist_background.svg'),
+                SvgPicture.asset(_EmptyTaskListAssets.todolist_background),
                 Positioned(
                   top: _size,
                   child: SlideTransition(
                     position: _animation,
-                    child: SvgPicture.asset('assets/todolist.svg'),
+                    child: SvgPicture.asset(_EmptyTaskListAssets.todolist),
                   ),
                 ),
               ],

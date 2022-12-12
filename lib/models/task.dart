@@ -1,22 +1,16 @@
-class Task {
-  Task(this.title)
-      : isDone = false,
-        isFav = false;
+import 'package:uuid/uuid.dart';
 
-  int? index;
+var _uuid = const Uuid();
+
+class Task {
+  Task({
+    required this.title,
+    this.isDone = false,
+    this.isFavorite = false,
+  });
+
+  final String id = _uuid.v4();
   String title;
   bool isDone;
-  bool isFav;
-
-  void editTitle(String newTitle) {
-    title = newTitle;
-  }
-
-  void switchDone() {
-    isDone = !isDone;
-  }
-
-  void switchFav() {
-    isFav = !isFav;
-  }
+  bool isFavorite;
 }
