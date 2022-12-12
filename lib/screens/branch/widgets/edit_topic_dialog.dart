@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class EditTopicDialog extends StatelessWidget {
   EditTopicDialog({
@@ -28,13 +29,8 @@ class EditTopicDialog extends StatelessWidget {
           icon: Icon(Icons.edit),
           hintText: 'Введите название ветки',
         ),
-        buildCounter: (
-          context, {
-          required currentLength,
-          required isFocused,
-          maxLength,
-        }) =>
-            Text('$currentLength/$_maxTopicLength'),
+        maxLength: _maxTopicLength,
+        maxLengthEnforcement: MaxLengthEnforcement.none,
         validator: (input) {
           if (input?.trim().isEmpty ?? true) {
             return 'Название не может быть пустым';
