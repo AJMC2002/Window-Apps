@@ -24,7 +24,7 @@ class TaskList extends StatelessWidget {
         top: 30,
         left: 30,
         right: 30,
-        bottom: kFloatingActionButtonMargin + 50,
+        bottom: kFloatingActionButtonMargin + 65,
       ),
       itemCount: tasks.length,
       itemBuilder: (context, index) => TaskTile(

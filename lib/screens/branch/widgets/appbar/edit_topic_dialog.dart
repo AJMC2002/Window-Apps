@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class EditTopicDialog extends StatelessWidget {
-  EditTopicDialog({
+class EditTopicDialog extends StatefulWidget {
+  const EditTopicDialog({
+    super.key,
     required this.topic,
     required this.editTopic,
   });
@@ -10,8 +11,13 @@ class EditTopicDialog extends StatelessWidget {
   final String topic;
   final ValueSetter<String> editTopic;
 
+  @override
+  State<EditTopicDialog> createState() => _EditTopicDialogState();
+}
+
+class _EditTopicDialogState extends State<EditTopicDialog> {
+  static const _maxTopicLength = 40;
   final _formFieldKey = GlobalKey<FormFieldState>();
-  final int _maxTopicLength = 40;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,7 @@ class EditTopicDialog extends StatelessWidget {
       ),
       content: TextFormField(
         key: _formFieldKey,
-        initialValue: topic,
+        initialValue: widget.topic,
         decoration: const InputDecoration(
           icon: Icon(Icons.edit),
           hintText: 'Введите название ветки',
@@ -42,7 +48,7 @@ class EditTopicDialog extends StatelessWidget {
         },
         onSaved: (input) {
           if (_formFieldKey.currentState!.validate()) {
-            editTopic(input!);
+            widget.editTopic(input!);
             Navigator.pop(context);
           }
         },

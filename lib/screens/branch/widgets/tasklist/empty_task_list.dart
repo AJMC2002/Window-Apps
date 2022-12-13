@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'empty_task_list_assets.dart';
+
 class EmptyTaskList extends StatelessWidget {
   const EmptyTaskList({super.key});
 
@@ -28,11 +30,6 @@ class EmptyTaskList extends StatelessWidget {
   }
 }
 
-abstract class _EmptyTaskListAssets {
-  static const String todolist_background = 'assets/todolist_background.svg';
-  static const String todolist = 'assets/todolist.svg';
-}
-
 class _EmptyTaskListImg extends StatefulWidget {
   const _EmptyTaskListImg();
 
@@ -42,7 +39,7 @@ class _EmptyTaskListImg extends StatefulWidget {
 
 class _EmptyTaskListImgState extends State<_EmptyTaskListImg>
     with TickerProviderStateMixin {
-  final double _size = 181;
+  static const _size = 181.0;
   late final AnimationController _controller;
   late final Animation<Offset> _animation;
 
@@ -74,21 +71,21 @@ class _EmptyTaskListImgState extends State<_EmptyTaskListImg>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _controller,
-      builder: ((context, child) => ClipPath(
-            clipper: _BackgroundClipper(),
-            child: Stack(
-              children: [
-                SvgPicture.asset(_EmptyTaskListAssets.todolist_background),
-                Positioned(
-                  top: _size,
-                  child: SlideTransition(
-                    position: _animation,
-                    child: SvgPicture.asset(_EmptyTaskListAssets.todolist),
-                  ),
-                ),
-              ],
+      builder: (context, child) => ClipPath(
+        clipper: _BackgroundClipper(),
+        child: Stack(
+          children: [
+            SvgPicture.asset(EmptyTaskListAssets.todolistBackground),
+            Positioned(
+              top: _size,
+              child: SlideTransition(
+                position: _animation,
+                child: SvgPicture.asset(EmptyTaskListAssets.todolist),
+              ),
             ),
-          )),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -110,6 +107,6 @@ class _BackgroundClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
+    return false;
   }
 }

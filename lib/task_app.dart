@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'screens/branch/branch.dart';
+import 'screens/branch/branch_page.dart';
+import 'settings.dart';
 
 class TaskApp extends StatelessWidget {
   const TaskApp({super.key});
@@ -12,7 +13,7 @@ class TaskApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: BranchPage(topic: "Учёба"),
+      home: const BranchPage(topic: "Учёба", uuid: Settings.uuid),
       debugShowCheckedModeBanner: false,
     );
   }

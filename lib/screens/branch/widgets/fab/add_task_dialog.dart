@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AddTaskDialog extends StatelessWidget {
+class AddTaskDialog extends StatefulWidget {
   AddTaskDialog({
     super.key,
     required this.addTask,
@@ -9,8 +9,13 @@ class AddTaskDialog extends StatelessWidget {
 
   final ValueSetter<String> addTask;
 
-  final _formFieldKey = GlobalKey<FormFieldState>();
+  @override
+  State<AddTaskDialog> createState() => _AddTaskDialogState();
+}
+
+class _AddTaskDialogState extends State<AddTaskDialog> {
   static const _maxTopicLength = 40;
+  final _formFieldKey = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +51,7 @@ class AddTaskDialog extends StatelessWidget {
         },
         onSaved: (input) {
           if (_formFieldKey.currentState!.validate()) {
-            addTask(input!);
+            widget.addTask(input!);
             Navigator.pop(context);
           }
         },

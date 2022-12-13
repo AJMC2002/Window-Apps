@@ -27,7 +27,7 @@ class TaskTileState extends State<TaskTile> {
   );
   static const _favoriteIconSelected = Icon(
     Icons.star,
-    color: Colors.deepPurpleAccent,
+    color: Colors.deepPurple,
   );
 
   @override
@@ -60,9 +60,10 @@ class TaskTileState extends State<TaskTile> {
               Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: Transform.scale(
-                  scale: 1.25,
+                  scale: 1.3,
                   child: Checkbox(
                     shape: const CircleBorder(),
+                    activeColor: Colors.deepPurple,
                     value: widget.task.isDone,
                     onChanged: (_) => widget.switchDone(widget.task.id),
                   ),
