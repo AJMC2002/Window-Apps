@@ -1,13 +1,13 @@
-class Task {
-  Task({
-    required this.id,
-    required this.title,
-    this.isDone = false,
-    this.isFavorite = false,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final String id;
-  String title;
-  bool isDone;
-  bool isFavorite;
+part 'task.freezed.dart';
+
+@Freezed()
+class Task with _$Task {
+  const factory Task({
+    required final String id,
+    required final String title,
+    @Default(false) final bool isDone,
+    @Default(false) final bool isFavorite,
+  }) = _Task;
 }

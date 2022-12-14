@@ -6,6 +6,7 @@ import 'widgets/appbar/branch_popupmenu.dart';
 import 'widgets/tasklist/empty_task_list.dart';
 import 'widgets/fab/add_task_dialog.dart';
 import 'widgets/tasklist/task_list.dart';
+import 'widgets/tasklist/task_list_background.dart';
 
 class BranchPage extends StatefulWidget {
   const BranchPage({super.key, required this.topic, required this.uuid});
@@ -29,15 +30,19 @@ class _BranchPageState extends State<BranchPage> {
     _topic = newTopic;
   }
 
+  int _getIndex(String id) {
+    return _allTasks.indexWhere((task) => task.id == id);
+  }
+
   void _switchDone(String id) {
-    final task = _allTasks.singleWhere((task) => task.id == id);
-    task.isDone = !task.isDone;
+    int i = _getIndex(id);
+    _allTasks[i] = _allTasks[i].copyWith(isDone: !_allTasks[i].isDone);
     _updateDisplayedTasks();
   }
 
   void _switchFavorite(String id) {
-    final task = _allTasks.singleWhere((task) => task.id == id);
-    task.isFavorite = !task.isFavorite;
+    int i = _getIndex(id);
+    _allTasks[i] = _allTasks[i].copyWith(isFavorite: !_allTasks[i].isFavorite);
     _updateDisplayedTasks();
   }
 
@@ -117,7 +122,9 @@ class _BranchPageState extends State<BranchPage> {
       ),
       body: Stack(
         children: <Widget>[
-          _displayedTasks.isEmpty ? const EmptyTaskList() : Container(),
+          _displayedTasks.isEmpty
+              ? const EmptyTaskList()
+              : const TaskListBackground(),
           TaskList(
             tasks: _displayedTasks,
             switchDone: _switchDone,
