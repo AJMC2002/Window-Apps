@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../app/config.dart';
+
 class EditTopicDialog extends StatefulWidget {
   const EditTopicDialog({
     super.key,
@@ -16,7 +18,6 @@ class EditTopicDialog extends StatefulWidget {
 }
 
 class _EditTopicDialogState extends State<EditTopicDialog> {
-  static const _maxTopicLength = 40;
   final _formFieldKey = GlobalKey<FormFieldState>();
 
   @override
@@ -35,12 +36,12 @@ class _EditTopicDialogState extends State<EditTopicDialog> {
           icon: Icon(Icons.edit),
           hintText: 'Введите название ветки',
         ),
-        maxLength: _maxTopicLength,
+        maxLength: Config.maxTopicNameLength,
         maxLengthEnforcement: MaxLengthEnforcement.none,
         validator: (input) {
           if (input?.trim().isEmpty ?? true) {
             return 'Название не может быть пустым';
-          } else if (input!.length > _maxTopicLength) {
+          } else if (input!.length >  Config.maxTopicNameLength) {
             return 'Слишком длинное название';
           } else {
             return null;

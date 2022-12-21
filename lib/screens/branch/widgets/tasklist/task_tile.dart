@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../models/task.dart';
+import 'task_tile_icons.dart';
 
-class TaskTile extends StatefulWidget {
+class TaskTile extends StatelessWidget {
   const TaskTile({
     super.key,
     required this.task,
@@ -17,25 +18,11 @@ class TaskTile extends StatefulWidget {
   final Function removeTask;
 
   @override
-  State<TaskTile> createState() => TaskTileState();
-}
-
-class TaskTileState extends State<TaskTile> {
-  static const _favoriteIcon = Icon(
-    Icons.star_border_purple500_outlined,
-    color: Colors.deepPurple,
-  );
-  static const _favoriteIconSelected = Icon(
-    Icons.star,
-    color: Colors.deepPurple,
-  );
-
-  @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: Key(widget.task.id),
+      key: Key(task.id),
       direction: DismissDirection.endToStart,
-      onDismissed: (direction) => widget.removeTask(widget.task.id),
+      onDismissed: (direction) => removeTask(task.id),
       background: Container(
         decoration: BoxDecoration(
           color: Colors.red,
@@ -64,25 +51,26 @@ class TaskTileState extends State<TaskTile> {
                   child: Checkbox(
                     shape: const CircleBorder(),
                     activeColor: Colors.deepPurple,
-                    value: widget.task.isDone,
-                    onChanged: (_) => widget.switchDone(widget.task.id),
+                    value: task.isDone,
+                    onChanged: (_) => switchDone(task.id),
                   ),
                 ),
               ),
               Expanded(
                 child: Text(
-                  widget.task.title,
+                  task.title,
                   style: const TextStyle(fontSize: 20),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: IconButton(
-                  icon: widget.task.isFavorite
-                      ? _favoriteIconSelected
-                      : _favoriteIcon,
+                  icon: task.isFavorite
+                      ? TaskTileIcons.favoriteIconSelected
+                      : TaskTileIcons.favoriteIcon,
                   iconSize: 30,
-                  onPressed: () => widget.switchFavorite(widget.task.id),
+                  isSelected: task.isFavorite,
+                  onPressed: () => switchFavorite(task.id),
                 ),
               ),
             ],

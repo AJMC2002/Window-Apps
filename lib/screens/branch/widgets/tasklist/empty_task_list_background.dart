@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'empty_task_list_assets.dart';
+import '../../../../assets/assets.dart';
 
-class EmptyTaskList extends StatelessWidget {
-  const EmptyTaskList({super.key});
+class EmptyTaskListBackground extends StatelessWidget {
+  const EmptyTaskListBackground({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,9 @@ class EmptyTaskList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: const [
-          _EmptyTaskListImg(),
+          _EmptyTaskListBackgroundImg(),
           Padding(
-            padding: EdgeInsets.all(22),
+            padding: EdgeInsets.all(10),
             child: Text(
               'На данный момент\nзадачи отсутствуют',
               style: TextStyle(fontSize: 30),
@@ -30,15 +30,16 @@ class EmptyTaskList extends StatelessWidget {
   }
 }
 
-class _EmptyTaskListImg extends StatefulWidget {
-  const _EmptyTaskListImg();
+class _EmptyTaskListBackgroundImg extends StatefulWidget {
+  const _EmptyTaskListBackgroundImg();
 
   @override
-  State<_EmptyTaskListImg> createState() => _EmptyTaskListImgState();
+  State<_EmptyTaskListBackgroundImg> createState() =>
+      _EmptyTaskListBackgroundImgState();
 }
 
-class _EmptyTaskListImgState extends State<_EmptyTaskListImg>
-    with TickerProviderStateMixin {
+class _EmptyTaskListBackgroundImgState
+    extends State<_EmptyTaskListBackgroundImg> with TickerProviderStateMixin {
   static const _size = 181.0;
   late final AnimationController _controller;
   late final Animation<Offset> _animation;
@@ -49,16 +50,16 @@ class _EmptyTaskListImgState extends State<_EmptyTaskListImg>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1300),
-    )
-      ..addListener(() {})
-      ..forward();
+    )..forward();
     _animation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(0, -1),
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.bounceOut,
-    ));
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.bounceOut,
+      ),
+    );
   }
 
   @override
@@ -75,12 +76,12 @@ class _EmptyTaskListImgState extends State<_EmptyTaskListImg>
         clipper: _BackgroundClipper(),
         child: Stack(
           children: [
-            SvgPicture.asset(EmptyTaskListAssets.todolistBackground),
+            SvgPicture.asset(Assets.todolistBackground),
             Positioned(
               top: _size,
               child: SlideTransition(
                 position: _animation,
-                child: SvgPicture.asset(EmptyTaskListAssets.todolist),
+                child: SvgPicture.asset(Assets.todolist),
               ),
             ),
           ],
@@ -96,7 +97,7 @@ class _BackgroundClipper extends CustomClipper<Path> {
     double height = size.height;
     double width = size.width;
 
-    var path = Path();
+    final path = Path();
     path.lineTo(0, height / 2);
     path.addArc(Rect.fromLTWH(0, 0, width, height), pi, -pi);
     path.lineTo(width, 0);

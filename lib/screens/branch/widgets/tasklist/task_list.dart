@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../../models/task.dart';
+import 'task_list_config.dart';
 import 'task_tile.dart';
 
 class TaskList extends StatelessWidget {
-  const TaskList({
+  TaskList({
     super.key,
     required this.tasks,
     required this.switchDone,
@@ -20,12 +21,7 @@ class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: const EdgeInsets.only(
-        top: 30,
-        left: 30,
-        right: 30,
-        bottom: kFloatingActionButtonMargin + 65,
-      ),
+      padding: TaskListConfig.taskListPadding,
       itemCount: tasks.length,
       itemBuilder: (context, index) => TaskTile(
         task: tasks[index],
@@ -33,7 +29,8 @@ class TaskList extends StatelessWidget {
         switchFavorite: switchFavorite,
         removeTask: removeTask,
       ),
-      separatorBuilder: (context, index) => const SizedBox(height: 10),
+      separatorBuilder: (context, index) =>
+          const SizedBox(height: TaskListConfig.taskTileSeparation),
     );
   }
 }

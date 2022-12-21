@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DeleteDoneTasksDialog extends StatelessWidget {
-  const DeleteDoneTasksDialog({required this.removeDoneTasks});
+  const DeleteDoneTasksDialog({super.key,required this.removeDoneTasks});
 
   final VoidCallback removeDoneTasks;
 
