@@ -43,5 +43,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Files not needed for Task #1
-lib/screens/task/task_page.dart
+# Files not needed for Task #2

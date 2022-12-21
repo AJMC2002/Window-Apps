@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../app/config.dart';
 import '../../models/task.dart';
 import 'widgets/appbar/branch_popupmenu.dart';
-import 'widgets/tasklist/empty_task_list_background.dart';
+import 'widgets/task_list/empty_task_list_background.dart';
+import 'widgets/task_list/task_list_background.dart';
+import 'widgets/task_list/task_list.dart';
 import 'widgets/fab/add_task_dialog.dart';
-import 'widgets/tasklist/task_list.dart';
-import 'widgets/tasklist/task_list_background.dart';
 
-class BranchPage extends StatefulWidget {
-  const BranchPage({super.key, required this.topic});
+class BranchScreen extends StatefulWidget {
+  const BranchScreen({super.key, required this.topic});
 
   final String topic;
 
   @override
-  State<BranchPage> createState() => _BranchPageState();
+  State<BranchScreen> createState() => _BranchScreenState();
 }
 
-class _BranchPageState extends State<BranchPage> {
+class _BranchScreenState extends State<BranchScreen> {
   String _topic = '';
   final List<Task> _allTasks = [];
   List<Task> _displayedTasks = [];

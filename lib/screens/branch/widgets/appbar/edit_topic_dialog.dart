@@ -36,12 +36,12 @@ class _EditTopicDialogState extends State<EditTopicDialog> {
           icon: Icon(Icons.edit),
           hintText: 'Введите название ветки',
         ),
-        maxLength: Config.maxTopicNameLength,
+        maxLength: Config.maxTopicTitleLength,
         maxLengthEnforcement: MaxLengthEnforcement.none,
         validator: (input) {
           if (input?.trim().isEmpty ?? true) {
             return 'Название не может быть пустым';
-          } else if (input!.length >  Config.maxTopicNameLength) {
+          } else if (input!.length > Config.maxTopicTitleLength) {
             return 'Слишком длинное название';
           } else {
             return null;

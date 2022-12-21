@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import '../../../../app/config.dart';
 
 class AddTaskDialog extends StatefulWidget {
-  AddTaskDialog({super.key, required this.addTask});
+  const AddTaskDialog({super.key, required this.addTask});
 
   final ValueSetter<String> addTask;
 
@@ -36,12 +36,12 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
           icon: Icon(Icons.add),
           hintText: 'Введите название задачи',
         ),
-        maxLength: Config.maxTaskNameLength,
+        maxLength: Config.maxTaskTitleLength,
         maxLengthEnforcement: MaxLengthEnforcement.none,
         validator: (input) {
           if (input?.trim().isEmpty ?? true) {
             return 'Название не может быть пустым';
-          } else if (input!.length > Config.maxTaskNameLength) {
+          } else if (input!.length > Config.maxTaskTitleLength) {
             return 'Слишком длинное название';
           } else {
             return null;
