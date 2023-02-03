@@ -33,6 +33,33 @@ class _TaskScreenState extends State<TaskScreen> {
                   background: Container(color: Colors.purple),
                 ),
               ),
+              SliverToBoxAdapter(
+                child: Container(
+                  margin: const EdgeInsets.only(
+                    top: Config.floatingActionButtonHeight / 2,
+                    left: 20,
+                    right: 20,
+                  ),
+                  color: Colors.grey[50],
+                  child: Column(
+                    children: [
+                      Text(
+                        "Создано ${widget.task.datetime.toIso8601String()}",
+                      ),
+                      ListView.builder(
+                          itemCount: widget.task.steps.length,
+                          itemBuilder: ((context, index) => Card(
+                                child: Row(
+                                  children: [
+                                    Text("X"),
+                                    Text(widget.task.steps[i].name)
+                                  ],
+                                ),
+                              )))
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
           Positioned(
@@ -44,7 +71,7 @@ class _TaskScreenState extends State<TaskScreen> {
               }),
               child: Icon(widget.task.isDone ? Icons.close : Icons.check),
             ),
-          )
+          ),
         ],
       ),
     );

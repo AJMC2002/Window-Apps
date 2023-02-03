@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../app/config.dart';
 import '../../models/task.dart';
+import '../../models/taskstep.dart';
 import 'widgets/appbar/branch_popupmenu.dart';
 import 'widgets/task_list/empty_task_list_background.dart';
 import 'widgets/task_list/task_list_background.dart';
@@ -49,9 +50,12 @@ class _BranchScreenState extends State<BranchScreen> {
   void _addTask(String title) {
     _allTasks.add(
       Task(
-        id: Config.uuid.v4(),
-        title: title,
-      ),
+          id: Config.uuid.v4(),
+          title: title,
+          datetime: DateTime.now(),
+          steps: [
+            TaskStep(id: Config.uuid.v4(), name: "This is not a step. (Or is it?)")
+          ]),
     );
     _updateDisplayedTasks();
   }

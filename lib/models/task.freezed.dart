@@ -18,8 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Task {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  DateTime get datetime => throw _privateConstructorUsedError;
   bool get isDone => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
+  List<Step> get steps => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TaskCopyWith<Task> get copyWith => throw _privateConstructorUsedError;
@@ -30,7 +32,13 @@ abstract class $TaskCopyWith<$Res> {
   factory $TaskCopyWith(Task value, $Res Function(Task) then) =
       _$TaskCopyWithImpl<$Res, Task>;
   @useResult
-  $Res call({String id, String title, bool isDone, bool isFavorite});
+  $Res call(
+      {String id,
+      String title,
+      DateTime datetime,
+      bool isDone,
+      bool isFavorite,
+      List<Step> steps});
 }
 
 /// @nodoc
@@ -48,8 +56,10 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? datetime = null,
     Object? isDone = null,
     Object? isFavorite = null,
+    Object? steps = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -60,6 +70,10 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      datetime: null == datetime
+          ? _value.datetime
+          : datetime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       isDone: null == isDone
           ? _value.isDone
           : isDone // ignore: cast_nullable_to_non_nullable
@@ -68,6 +82,10 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task>
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
+      steps: null == steps
+          ? _value.steps
+          : steps // ignore: cast_nullable_to_non_nullable
+              as List<Step>,
     ) as $Val);
   }
 }
@@ -78,7 +96,13 @@ abstract class _$$_TaskCopyWith<$Res> implements $TaskCopyWith<$Res> {
       __$$_TaskCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, bool isDone, bool isFavorite});
+  $Res call(
+      {String id,
+      String title,
+      DateTime datetime,
+      bool isDone,
+      bool isFavorite,
+      List<Step> steps});
 }
 
 /// @nodoc
@@ -92,8 +116,10 @@ class __$$_TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$_Task>
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? datetime = null,
     Object? isDone = null,
     Object? isFavorite = null,
+    Object? steps = null,
   }) {
     return _then(_$_Task(
       id: null == id
@@ -104,6 +130,10 @@ class __$$_TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$_Task>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      datetime: null == datetime
+          ? _value.datetime
+          : datetime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       isDone: null == isDone
           ? _value.isDone
           : isDone // ignore: cast_nullable_to_non_nullable
@@ -112,6 +142,10 @@ class __$$_TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$_Task>
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
               as bool,
+      steps: null == steps
+          ? _value._steps
+          : steps // ignore: cast_nullable_to_non_nullable
+              as List<Step>,
     ));
   }
 }
@@ -122,23 +156,36 @@ class _$_Task implements _Task {
   const _$_Task(
       {required this.id,
       required this.title,
+      required this.datetime,
       this.isDone = false,
-      this.isFavorite = false});
+      this.isFavorite = false,
+      final List<Step> steps = const []})
+      : _steps = steps;
 
   @override
   final String id;
   @override
   final String title;
   @override
+  final DateTime datetime;
+  @override
   @JsonKey()
   final bool isDone;
   @override
   @JsonKey()
   final bool isFavorite;
+  final List<Step> _steps;
+  @override
+  @JsonKey()
+  List<Step> get steps {
+    if (_steps is EqualUnmodifiableListView) return _steps;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_steps);
+  }
 
   @override
   String toString() {
-    return 'Task(id: $id, title: $title, isDone: $isDone, isFavorite: $isFavorite)';
+    return 'Task(id: $id, title: $title, datetime: $datetime, isDone: $isDone, isFavorite: $isFavorite, steps: $steps)';
   }
 
   @override
@@ -148,13 +195,17 @@ class _$_Task implements _Task {
             other is _$_Task &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.datetime, datetime) ||
+                other.datetime == datetime) &&
             (identical(other.isDone, isDone) || other.isDone == isDone) &&
             (identical(other.isFavorite, isFavorite) ||
-                other.isFavorite == isFavorite));
+                other.isFavorite == isFavorite) &&
+            const DeepCollectionEquality().equals(other._steps, _steps));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, isDone, isFavorite);
+  int get hashCode => Object.hash(runtimeType, id, title, datetime, isDone,
+      isFavorite, const DeepCollectionEquality().hash(_steps));
 
   @JsonKey(ignore: true)
   @override
@@ -167,17 +218,23 @@ abstract class _Task implements Task {
   const factory _Task(
       {required final String id,
       required final String title,
+      required final DateTime datetime,
       final bool isDone,
-      final bool isFavorite}) = _$_Task;
+      final bool isFavorite,
+      final List<Step> steps}) = _$_Task;
 
   @override
   String get id;
   @override
   String get title;
   @override
+  DateTime get datetime;
+  @override
   bool get isDone;
   @override
   bool get isFavorite;
+  @override
+  List<Step> get steps;
   @override
   @JsonKey(ignore: true)
   _$$_TaskCopyWith<_$_Task> get copyWith => throw _privateConstructorUsedError;
