@@ -1,5 +1,5 @@
-name: task_app
-description: A new Flutter project.
+name: tasky
+description: An app for task management.
 
 publish_to: "none"
 

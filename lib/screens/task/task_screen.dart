@@ -42,7 +42,7 @@ class _TaskScreenState extends State<TaskScreen> {
               onPressed: () => setState(() {
                 widget.switchDone(widget.task.id);
               }),
-              child: Icon(widget.task.isDone ? Icons.check : Icons.close),
+              child: Icon(widget.task.isDone ? Icons.close : Icons.check),
             ),
           )
         ],
